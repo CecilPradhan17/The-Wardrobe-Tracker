@@ -1,0 +1,77 @@
+html,body{
+    display:flex;
+    height:100%;
+    width:100%;
+    margin:0;
+}
+#left-container{
+    display:flex;
+    flex-direction:column;
+    flex:2;
+    overflow-y: auto;
+
+}
+#right-container{
+    background:maroon;
+    display:flex;
+    flex-direction:column;
+    flex:0.6;
+    align-items:center;
+}
+#filter-bar{
+    background:grey;
+    height:10vh;
+    min-height:10vh;
+    display:flex;
+    align-items:center;
+    overflow-x: auto;
+}
+#filter-bar div{
+    border:1px solid black;
+    height:2em;
+    width:10em;
+    min-width:10em;
+    text-align:center;
+    margin:1em;
+}
+#filter-btn-container{
+    display:flex;
+}
+#filter-bar-btn{
+    background:silver;
+    margin-left:auto;
+    height:3vh; 
+    width:7vw;
+    text-align:center;
+}
+#outfits-container{
+    display:grid;
+    grid-template-columns: auto auto auto;
+    gap:3rem;
+    padding:3rem;
+    justify-content:center;
+}
+
+#outfits-container div{
+    border:1px solid black;
+    text-align:center;
+    height:40vh;
+    width:20vw;
+}
+#logo{
+    border:1px solid black;
+    height:30vh;
+    width:17vw;
+    text-align:center;
+    margin-top:2em;
+    margin-bottom:5em;
+}
+#add-outfit-btn{
+    height:5vh;
+    width:10vw;
+    margin-bottom:3em;
+}
+#add-clothing-btn{
+    height:5vh;
+    width:10vw;
+}
