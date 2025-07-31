@@ -80,3 +80,67 @@ html,body{
     display:flex;
     flex-direction:column;
 }
+.hidden{
+    display:none;
+}
+#filter-modal{
+    top:0;
+    left:0;
+    position:fixed;
+    height:100%;
+    width:100%;
+    background:rgb(0,0,0,0.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+#add-filter-form{
+    background:rgb(255, 251, 251);
+    width:30em;
+    height:30em;
+    border:0.5em solid black;
+    padding:1em;
+    box-shadow: 0 6px 20px 10px rgb(216, 210, 210);
+}
+#filter-form-heading-container{
+    text-align:center;
+}
+#type-name-container{
+    margin-top:3em;
+    margin-bottom:2em;
+}
+#type-color-container{
+    margin-bottom:8em;
+}
+#filter-form-buttons{
+    text-align: center;
+}
+#example{
+    font-style: italic;
+    color:grey;
+}
+#type-color{
+    width:15%;
+    height:3em;
+    margin:0.5em;
+}
+#type-name{
+    width:50%;
+    height:3em;
+    margin:0.5em;
+    font-size:0.8em; 
+}
+#type-name-label,#type-color-label{
+    font-size:1.2em;
+}
+#cancel-filter-form{
+    background:rgb(214, 76, 76);
+    width:8em;
+    height:3em;
+}
+#add-type-button{
+    background:rgb(85, 233, 85);
+    width:8em;
+    height:3em;
+}

@@ -50,23 +50,32 @@
                 add clothing
             </button>
         </div>
-        <div id="filter-modal" class="hidden">
-            <div id="add-filter-form-container">
-                <form id="add-filter-form">
-                    <h3>Add Outfit Type</h3>
-                    <label for="type-name">outfit type name:</label>
-                    <input id="type-name" type="text">
-                    <label for="type-color">outfit type color:</label>
-                    <input id="type-color" type="color">
-                    <div id="filter-form-buttons">
-                        <button id="cancel-filter-form">
-                            cancel
-                        </button>
-                        <button id="add-type-button">
-                            add
-                        </button>
-                    </div>
-                </form>
+        <div id="hide-modal" class="hidden">   
+            <div id="filter-modal">
+                <div id="add-filter-form-container">
+                    <form id="add-filter-form">
+                        <div id="filter-form-heading-container">
+                            <h2 id="filter-form-heading">Add Outfit Type</h2>
+                        </div>
+                        <p id="example">For example: "Formal","Casual","Wear-to-class","Gym".etc</p>
+                        <div id="type-name-container">
+                            <label for="type-name" id="type-name-label"><strong>Outfit Type name:</strong></label>
+                            <input id="type-name" type="text" placeholder="Enter suitable outfit category" required>
+                        </div>
+                        <div id="type-color-container">
+                            <label for="type-color" id="type-color-label"><strong>Outfit Type color:</strong></label>
+                            <input id="type-color" type="color" required>
+                        </div>
+                        <div id="filter-form-buttons">
+                            <button id="cancel-filter-form">
+                                cancel
+                            </button>
+                            <button id="add-type-button">
+                                add
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
