@@ -36,8 +36,9 @@ html,body{
 }
 #filter-btn-container{
     display:flex;
+    margin-right:0.5em;
 }
-#filter-bar-btn{
+#add-filter-btn{
     background:silver;
     margin-left:auto;
     height:3vh; 
@@ -74,4 +75,8 @@ html,body{
 #add-clothing-btn{
     height:5vh;
     width:10vw;
+}
+#add-filter-form{
+    display:flex;
+    flex-direction:column;
 }
