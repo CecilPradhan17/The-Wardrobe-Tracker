@@ -20,9 +20,9 @@
                 <div>type</div>
             </div>
             <div id="filter-btn-container">
-                <div id="filter-bar-btn">
-                    filterbutton
-                </div>
+                <button id="add-filter-btn">
+                    <strong>add filter</strong>
+                </button>
             </div>
             <div id="outfits-container">
                 <div>outfits</div>
@@ -50,5 +50,26 @@
                 add clothing
             </button>
         </div>
+        <div id="filter-modal" class="hidden">
+            <div id="add-filter-form-container">
+                <form id="add-filter-form">
+                    <h3>Add Outfit Type</h3>
+                    <label for="type-name">outfit type name:</label>
+                    <input id="type-name" type="text">
+                    <label for="type-color">outfit type color:</label>
+                    <input id="type-color" type="color">
+                    <div id="filter-form-buttons">
+                        <button id="cancel-filter-form">
+                            cancel
+                        </button>
+                        <button id="add-type-button">
+                            add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
+
+<!-- /* to-do for today: start js on the filter bar, then the outfits then connect them all together */ -->
