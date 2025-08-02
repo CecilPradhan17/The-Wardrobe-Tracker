@@ -103,7 +103,7 @@ html,body{
     height:30em;
     border:0.5em solid black;
     padding:1em;
-    box-shadow: 0 6px 20px 10px rgb(216, 210, 210);
+    box-shadow: 0 1em 5em 1em rgb(216, 210, 210);
     z-index:1001;
 }
 #filter-form-heading-container{
@@ -153,11 +153,9 @@ html,body{
     width:10em;
     min-width:10em;
     margin:1em;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    -webkit-text-stroke: 0.1px black; /* black border around text */
-    text-stroke: 0.1px black;  
-    color:white;
-    overflow:hidden;
+    text-align: center;
+    line-height: 2em;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

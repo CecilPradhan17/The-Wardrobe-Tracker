@@ -31,25 +31,32 @@ const closeFilterModal = (confirm) =>
 
 const createNewType = () =>
 {
-    const name = typeName.value;
-    const color = typeColor.value;
-    const id = crypto.randomUUID();
-    const type = 
+    if(typeName.value)
     {
-        name : name,
-        color : color,
-        id : id
+        const name = typeName.value;
+        const color = typeColor.value;
+        const id = crypto.randomUUID();
+        const type = 
+        {
+            name : name,
+            color : color,
+            id : id
+        }
+        createdTypes.push(type);
+        return type;
     }
-    createdTypes.push(type);
-    return type;
+    else
+        alert("You need to enter a name.");
 }
 
-const addFilterType = (type) =>
+const addFilterType = () =>
 {
+    const type = createNewType();
     const newDiv = document.createElement("div");
     newDiv.textContent = type.name;
     newDiv.style.background = type.color;
     newDiv.id = type.id;
+    newDiv.style.color = getContrastingTextColor(type.color);
     newDiv.classList.add("outfit-type");
     filterBar.appendChild(newDiv);
 }
@@ -71,7 +78,27 @@ ModalBackdrop.addEventListener("click",(e) =>
 addTypeBtn.addEventListener("click", (e) =>
 {
     e.preventDefault();
-    const test = createNewType();
-    addFilterType(test);
+    addFilterType();
     closeFilterModal(false);
 });
+
+function getContrastingTextColor(hex) 
+{
+  const r = parseInt(hex.substr(1, 2), 16);
+  const g = parseInt(hex.substr(3, 2), 16);
+  const b = parseInt(hex.substr(5, 2), 16);
+  return ((r * 299 + g * 587 + b * 114) / 1000) > 125 ? "black" : "white";
+}
+
+addFilterForm.addEventListener("keydown", (e) => 
+{
+    if(e.key === "Enter")
+    {
+        e.preventDefault();
+        addFilterType();
+        closeFilterModal(false);
+    } 
+});
+
+
+
