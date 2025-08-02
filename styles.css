@@ -26,14 +26,6 @@ html,body{
     align-items:center;
     overflow-x: auto;
 }
-#filter-bar div{
-    border:1px solid black;
-    height:2em;
-    width:10em;
-    min-width:10em;
-    text-align:center;
-    margin:1em;
-}
 #filter-btn-container{
     display:flex;
     margin-right:0.5em;
@@ -83,17 +75,27 @@ html,body{
 .hidden{
     display:none;
 }
-#filter-modal{
+#modal-backdrop{
     top:0;
     left:0;
     position:fixed;
     height:100%;
     width:100%;
     background:rgb(0,0,0,0.5);
+    z-index:1000;
+}
+#add-filter-form-container{
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:1000;
+    height:100%;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 #add-filter-form{
     background:rgb(255, 251, 251);
@@ -102,6 +104,7 @@ html,body{
     border:0.5em solid black;
     padding:1em;
     box-shadow: 0 6px 20px 10px rgb(216, 210, 210);
+    z-index:1001;
 }
 #filter-form-heading-container{
     text-align:center;
@@ -139,8 +142,22 @@ html,body{
     width:8em;
     height:3em;
 }
-#add-type-button{
+#add-type-btn{
     background:rgb(85, 233, 85);
     width:8em;
     height:3em;
+}
+.outfit-type{
+    border:1px solid black;
+    height:2em;
+    width:10em;
+    min-width:10em;
+    margin:1em;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-text-stroke: 0.1px black; /* black border around text */
+    text-stroke: 0.1px black;  
+    color:white;
+    overflow:hidden;
 }
