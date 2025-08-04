@@ -68,10 +68,6 @@ html,body{
     height:5vh;
     width:10vw;
 }
-#add-filter-form{
-    display:flex;
-    flex-direction:column;
-}
 .hidden{
     display:none;
 }
@@ -104,6 +100,8 @@ html,body{
     padding:1em;
     box-shadow: 0 1em 5em 1em rgb(216, 210, 210);
     z-index:1001;
+    display:flex;
+    flex-direction:column;
 }
 #filter-form-heading-container{
     text-align:center;
@@ -157,4 +155,99 @@ html,body{
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
+}
+#add-outfit-form-container{
+    height:100%;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+}
+#add-outfit-form{
+    background:rgb(255, 251, 251);
+    width:40em;
+    height:45em;
+    border:0.5em solid black;
+    padding:1.5em;
+    box-shadow: 0 1em 5em 1em rgb(216, 210, 210);
+    z-index:1001;
+    display:flex;
+    flex-direction:column;
+    overflow-y:auto;
+}
+#outfit-preview-container{
+    display:flex;
+    justify-content: center;
+    padding:2em;
+}
+#outfit-preview-holder{
+    background:silver;
+    width:300px;
+    height:400px;
+    overflow:hidden;
+    border-radius:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#outfit-preview{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position: center;
+}
+#outfit-form-heading-container{
+    text-align:center;
+    margin-bottom:2em;
+}
+#outfit-photo-label{
+    font-size:24px;
+}
+#outfit-photo{
+    font-size:19px;
+    margin-left:10px;
+}
+#select-tags-container{
+    background:grey;
+    width:630px;
+    min-height:200px;
+    display:grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-items: center;
+    column-gap:40px;
+}
+#select-tags-container div{
+    border:1px solid black;
+    width:150px;
+    height:50px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+#outfit-name-container{
+    margin-bottom:20px;
+    text-align: center;
+}
+#outfit-name-label{
+    font-size:24px;
+}
+#outfit-name{
+    font-size:19px;
+    width:350px;
+    margin-left:10px;
+}
+#outfit-form-buttons{
+    text-align:center;
+    margin:2em;
+}
+#cancel-outfit-form{
+    background:rgb(214, 76, 76);
+    width:8em;
+    height:3em;
+}
+#submit-outfit-btn{
+    background:rgb(85, 233, 85);
+    width:8em;
+    height:3em;
 }
