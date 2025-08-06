@@ -209,21 +209,28 @@ html,body{
 }
 #select-tags-container{
     background:grey;
-    width:630px;
+    width:600px;
     min-height:200px;
     display:grid;
     grid-template-columns: auto auto auto;
     justify-content: center;
     align-items: center;
     column-gap:40px;
+    row-gap:40px;
+    padding:20px;
+    overflow:auto;
 }
-#select-tags-container div{
+.outfitType{
     border:1px solid black;
     width:150px;
     height:50px;
     display:flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+.outfitType.selected{
+    border-color: aqua;
 }
 #outfit-name-container{
     margin-bottom:20px;

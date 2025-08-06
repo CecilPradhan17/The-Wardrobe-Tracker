@@ -18,8 +18,10 @@ const outfitFormContainer = document.getElementById("add-outfit-form-container")
 const outfitForm = document.getElementById("add-outfit-form");
 const outfitPhoto = document.getElementById("outfit-photo");
 const outfitPreview = document.getElementById("outfit-preview");
+        //select tags container
+const selectedTagsContainer = document.getElementById("select-tags-container");
 
-const createdTypes = [];
+const createdTypes = {};
 
 const displayFilterModal = () => 
 {
@@ -33,6 +35,7 @@ const displayOutfitModal = () =>
     filterModalHider.classList.remove("hidden");
     outfitFormContainer.classList.remove("hidden");
     outfitFormContainer.classList.add("modal-active");
+    showAllFilterTags();
 }
 
 const closeFilterModal = (confirm) =>
@@ -84,8 +87,8 @@ const createNewType = () =>
             name : name,
             color : color,
             id : id
-        }
-        createdTypes.push(type);
+        };
+        createdTypes[id] = type;
         return type;
     }
     else
@@ -160,29 +163,53 @@ outfitForm.addEventListener("keydown", (e) =>
 outfitPhoto.addEventListener("change", () => 
 {
   const file = outfitPhoto.files[0];
-  console.log("Selected file:", file);
-  if (file) {
+  if(file) 
+  {
     const reader = new FileReader();
-    reader.onload = () => {
-      console.log("File loaded, setting preview src");
-      outfitPreview.src = reader.result;
-      outfitPreview.style.display = "block";
-    };
+    reader.onload = () => outfitPreview.src = reader.result;
     reader.readAsDataURL(file);
-  } else {
-    console.log("No file selected");
-    outfitPreview.src = "";
-    outfitPreview.style.display = "none";
-  }
+  } 
 });
+
+const selectedTypes = new Set();
+
+const showAllFilterTags = () =>
+{
+    selectedTagsContainer.innerHTML = "";
+
+    Object.values(createdTypes).forEach((type) => 
+    {
+        const newDiv = document.createElement("div");
+        newDiv.textContent = type.name;
+        newDiv.style.background = type.color;
+        newDiv.id = type.id;
+        newDiv.classList.add("outfitType");
+        newDiv.style.color = getContrastingTextColor(type.color);
+
+        newDiv.addEventListener("click", () => 
+        {
+            if (selectedTypes.has(type.id)) 
+            {
+                selectedTypes.delete(type.id);
+                newDiv.classList.remove("selected");
+            } 
+            else 
+            {
+                selectedTypes.add(type.id);
+                newDiv.classList.add("selected");
+            }
+        });
+        selectedTagsContainer.appendChild(newDiv);
+    });
+}
 
 addOutfitBtn.addEventListener("click", displayOutfitModal);
 
 
 /* to-do for today: 
-1. finish the html and css for the outfit form
-2. understand how the picture preview works
-3. Add the select outfit types section
+1. finish the html and css for the outfit form /
+2. understand how the picture preview works /
+3. Add the select outfit types section /
 4. complete the js for the outfit form
 5. display the outfits in the screen 
 6. look into json storage */
