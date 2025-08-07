@@ -176,7 +176,17 @@ const addCreatedOutfit = () =>
 }
 
 
-addFilterBtn.addEventListener("click",displayFilterModal);
+addFilterBtn.addEventListener("click", () =>
+    {
+        if(!filterBar.classList.contains("deleteSelection"))
+        {
+            displayFilterModal();
+        }
+        else
+        {
+            alert("cannot add a filter in deletion mode");
+        }
+    });
 
 closeModalBtn.addEventListener("click", (e) =>
 {
@@ -318,32 +328,47 @@ const displayCreatedOutfits = () =>
 
 removeFilterBtn.addEventListener("click", () => 
 {
-    if (removeFilterBtn.textContent === "remove filter")
+    if(filterBar.innerHTML != "")
     {
-        filterBar.classList.add("deleteSelection");
-        removeFilterBtn.classList.add("delete");
-        removeFilterBtn.textContent = "delete";
+        if (removeFilterBtn.textContent === "remove filter")
+        {
+            filterBar.classList.add("deleteSelection");
+            removeFilterBtn.classList.add("delete");
+            removeFilterBtn.textContent = "delete";
+        }
+        else
+        {
+            Object.values(createdTypes).forEach((type) =>
+            {
+                if (deleteTypes.has(type.id))
+                {
+                    const confirmCancel = window.confirm("Are you sure you want to delete the selected filter tags?");
+                    if(confirmCancel)
+                    {
+                        filterBar.classList.remove("deleteSelection");
+                        removeFilterBtn.classList.remove("delete");
+                        removeFilterBtn.textContent = "remove filter";
+                        delete createdTypes[type.id];
+                    }
+                }
+                else
+                {
+                    filterBar.classList.remove("deleteSelection");
+                    removeFilterBtn.classList.remove("delete");
+                    removeFilterBtn.textContent = "remove filter";
+                }
+            });
+            renderFilterType();
+        }
     }
     else
     {
-        filterBar.classList.remove("deleteSelection");
-        removeFilterBtn.classList.remove("delete");
-        removeFilterBtn.textContent = "remove filter";
-        Object.values(createdTypes).forEach((type) =>
-        {
-            if (deleteTypes.has(type.id))
-            {
-                delete createdTypes[type.id];
-            }
-        });
-        renderFilterType();
+        alert("No filters added");
     }
 });
 
-/* to-do: 
-1. add select/deselect on the filter bar /
-2. add filter feature when selected /
-3. delete filter option /
-4. delete outfit option
-5. storage in JSON 
-*/
+/* to-do:
+1. the selectedTags for an outfit needs to be updated when the outfit's tag gets deleted 
+(also what to do if it has no more tags now)
+2. delete outfit option
+3. storage in JSON */
