@@ -161,6 +161,9 @@ html,body{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.outfit-type.selected{
+    border: 2px solid aqua;
+}
 #add-outfit-form-container{
     height:100%;
     width:100%;

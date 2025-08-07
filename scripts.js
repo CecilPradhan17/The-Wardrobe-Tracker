@@ -31,6 +31,7 @@ const outfitsContainer = document.getElementById("outfits-container");
 const createdTypes = {};
 const createdOutfits = {};
 const selectedTypes = new Set();
+const selectedTags = new Set();
 let currentPhotoDataURL = "";
 
 const displayFilterModal = () => 
@@ -65,7 +66,6 @@ const closeFilterModal = (confirm) =>
         filterModalHider.classList.add("hidden");
         addFilterFormContainer.classList.add("hidden");
         addFilterFormContainer.classList.remove("modal-active");
-        addFilterFormContainer.classList.add("hidden");
     }
 }
 
@@ -86,7 +86,6 @@ const closeOutfitModal = (confirm) =>
         filterModalHider.classList.add("hidden");
         outfitFormContainer.classList.add("hidden");
         outfitFormContainer.classList.remove("modal-active");
-        outfitFormContainer.classList.add("hidden");
     }
 }
 const createNewType = () =>
@@ -118,6 +117,21 @@ const addFilterType = () =>
     newDiv.id = type.id;
     newDiv.style.color = getContrastingTextColor(type.color);
     newDiv.classList.add("outfit-type");
+    newDiv.addEventListener("click", () => 
+    {   
+        if (selectedTags.has(newDiv.id))
+        {
+            newDiv.classList.remove("selected");
+            selectedTags.delete(newDiv.id);
+            displayCreatedOutfits();
+        }
+        else
+        {
+            newDiv.classList.add("selected");
+            selectedTags.add(newDiv.id);
+            displayCreatedOutfits();
+        }
+    });
     filterBar.appendChild(newDiv);
 }
 
@@ -129,11 +143,12 @@ const addCreatedOutfit = () =>
     {
         name : name,
         photo : currentPhotoDataURL,
-        filters : selectedTypes,
+        filters : Array.from(selectedTypes),
         id : id
     };
     createdOutfits[outfit.id] = outfit;
     displayCreatedOutfits();
+    selectedTypes.clear();
 }
 
 
@@ -168,7 +183,7 @@ submitOutfitBtn.addEventListener("click", (e) =>
         if(selectedTypes.size != 0)
         {
             addCreatedOutfit();
-            closeFilterModal(false); 
+            closeOutfitModal(false); 
         }
         else
         {
@@ -204,7 +219,7 @@ outfitForm.addEventListener("keydown", (e) =>
     if(e.key === "Enter")
     {
         e.preventDefault();
-        addFilterType();
+        addCreatedOutfit();
         closeOutfitModal(false);
     } 
 });
@@ -263,15 +278,24 @@ const displayCreatedOutfits = () =>
     outfitsContainer.innerHTML = "";
     Object.values(createdOutfits).forEach((outfit) => 
     {
-        const newDiv = document.createElement("div");
-        newDiv.classList.add("outfitHolder");
-        const outfitImage = document.createElement("img");
-        outfitImage.classList.add("outfitImage");
-        outfitImage.id = outfit.id;
-        outfitImage.src = outfit.photo;
-        newDiv.appendChild(outfitImage);
-        outfitsContainer.appendChild(newDiv);
+        if(selectedTags.size === 0 || outfit.filters.some(type => selectedTags.has(type)))
+        {
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("outfitHolder");
+            const outfitImage = document.createElement("img");
+            outfitImage.classList.add("outfitImage");
+            outfitImage.id = outfit.id;
+            outfitImage.src = outfit.photo;
+            newDiv.appendChild(outfitImage);
+            outfitsContainer.appendChild(newDiv);
+        }
     });
 };
 
-
+/* to-do: 
+1. add select/deselect on the filter bar /
+2. add filter feature when selected /
+3. delete filter option 
+4. delete outfit option
+5. storage in JSON 
+*/
