@@ -1,6 +1,7 @@
 //filter bar 
 const filterBar = document.getElementById("filter-bar");
 const addFilterBtn = document.getElementById("add-filter-btn");
+const removeFilterBtn = document.getElementById("remove-filter-btn");
     //filter modal 
 const filterModalHider = document.getElementById("hide-modal");
 const ModalBackdrop = document.getElementById("modal-backdrop");
@@ -32,6 +33,8 @@ const createdTypes = {};
 const createdOutfits = {};
 const selectedTypes = new Set();
 const selectedTags = new Set();
+const deleteTypes = new Set();
+
 let currentPhotoDataURL = "";
 
 const displayFilterModal = () => 
@@ -102,37 +105,58 @@ const createNewType = () =>
             id : id
         };
         createdTypes[id] = type;
-        return type;
+        renderFilterType();
     }
     else
         alert("You need to enter a name.");
 }
 
-const addFilterType = () =>
+const renderFilterType = () =>
 {
-    const type = createNewType();
-    const newDiv = document.createElement("div");
-    newDiv.textContent = type.name;
-    newDiv.style.background = type.color;
-    newDiv.id = type.id;
-    newDiv.style.color = getContrastingTextColor(type.color);
-    newDiv.classList.add("outfit-type");
-    newDiv.addEventListener("click", () => 
-    {   
-        if (selectedTags.has(newDiv.id))
-        {
-            newDiv.classList.remove("selected");
-            selectedTags.delete(newDiv.id);
-            displayCreatedOutfits();
-        }
-        else
-        {
-            newDiv.classList.add("selected");
-            selectedTags.add(newDiv.id);
-            displayCreatedOutfits();
-        }
+    filterBar.innerHTML = "";
+
+    Object.values(createdTypes).forEach((type) => 
+    {
+        const newDiv = document.createElement("div");
+        newDiv.textContent = type.name;
+        newDiv.style.background = type.color;
+        newDiv.id = type.id;
+        newDiv.classList.add("outfit-type");
+        newDiv.style.color = getContrastingTextColor(type.color);
+
+        newDiv.addEventListener("click", () => 
+        {   
+            if(!filterBar.classList.contains("deleteSelection"))
+            {
+                if (selectedTags.has(newDiv.id))
+                {
+                    newDiv.classList.remove("selected");
+                    selectedTags.delete(newDiv.id);
+                    displayCreatedOutfits();
+                }
+                else
+                {
+                    newDiv.classList.add("selected");
+                    selectedTags.add(newDiv.id);
+                    displayCreatedOutfits();
+                }
+            }
+            else
+            {
+                if (deleteTypes.has(newDiv.id))
+                {
+                    newDiv.classList.remove("delete");
+                    deleteTypes.delete(newDiv.id);
+                }
+                else
+                {
+                    newDiv.classList.add("delete");
+                    deleteTypes.add(newDiv.id);
+                }
+            }
+        });
+        filterBar.appendChild(newDiv);
     });
-    filterBar.appendChild(newDiv);
 }
 
 const addCreatedOutfit = () =>
@@ -171,7 +195,7 @@ ModalBackdrop.addEventListener("click",(e) =>
 addTypeBtn.addEventListener("click", (e) =>
 {
     e.preventDefault();
-    addFilterType();
+    createNewType();
     closeFilterModal(false);
 });
 
@@ -209,7 +233,7 @@ addFilterForm.addEventListener("keydown", (e) =>
     if(e.key === "Enter")
     {
         e.preventDefault();
-        addFilterType();
+        createNewType();
         closeFilterModal(false);
     } 
 });
@@ -292,10 +316,34 @@ const displayCreatedOutfits = () =>
     });
 };
 
+removeFilterBtn.addEventListener("click", () => 
+{
+    if (removeFilterBtn.textContent === "remove filter")
+    {
+        filterBar.classList.add("deleteSelection");
+        removeFilterBtn.classList.add("delete");
+        removeFilterBtn.textContent = "delete";
+    }
+    else
+    {
+        filterBar.classList.remove("deleteSelection");
+        removeFilterBtn.classList.remove("delete");
+        removeFilterBtn.textContent = "remove filter";
+        Object.values(createdTypes).forEach((type) =>
+        {
+            if (deleteTypes.has(type.id))
+            {
+                delete createdTypes[type.id];
+            }
+        });
+        renderFilterType();
+    }
+});
+
 /* to-do: 
 1. add select/deselect on the filter bar /
 2. add filter feature when selected /
-3. delete filter option 
+3. delete filter option /
 4. delete outfit option
 5. storage in JSON 
 */

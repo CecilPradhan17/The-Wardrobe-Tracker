@@ -20,6 +20,7 @@ html,body{
 }
 #filter-bar{
     background:grey;
+    border:2px solid grey;
     height:10vh;
     min-height:10vh;
     display:flex;
@@ -28,14 +29,21 @@ html,body{
 }
 #filter-btn-container{
     display:flex;
-    margin-right:0.5em;
+    justify-content: flex-end;
 }
 #add-filter-btn{
     background:silver;
-    margin-left:auto;
     height:3vh; 
     width:7vw;
     text-align:center;
+    font-weight:bold;
+}
+#remove-filter-btn{
+    background:rgb(220, 161, 161);
+    height:3vh; 
+    width:7vw;
+    text-align:center;
+    font-weight:bold;
 }
 #outfits-container{
     display:grid;
@@ -274,4 +282,10 @@ html,body{
     background:rgb(85, 233, 85);
     width:8em;
     height:3em;
+}
+#filter-bar.deleteSelection{
+    border:2px solid rgb(224, 98, 98);
+}
+.outfit-type.delete{
+    border:2px solid rgb(224, 98, 98);
 }
