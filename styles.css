@@ -44,12 +44,17 @@ html,body{
     padding:3rem;
     justify-content:center;
 }
-
-#outfits-container div{
+.outfitHolder{
     border:1px solid black;
     text-align:center;
-    height:40vh;
-    width:20vw;
+    height:350px;
+    width:300px;
+}
+.outfitImage{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position: center;
 }
 #logo{
     border:1px solid black;
@@ -207,6 +212,15 @@ html,body{
     font-size:19px;
     margin-left:10px;
 }
+#select-tags-header{
+    display:flex;
+    gap:10px;
+}
+#select-tags-header p{
+    color:gray;
+    line-height: 1.5;
+    font-size: 20px;
+}
 #select-tags-container{
     background:grey;
     width:600px;
@@ -230,7 +244,7 @@ html,body{
     cursor: pointer;
 }
 .outfitType.selected{
-    border-color: aqua;
+    border: 2px solid aqua;
 }
 #outfit-name-container{
     margin-bottom:20px;

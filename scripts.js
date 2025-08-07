@@ -18,10 +18,20 @@ const outfitFormContainer = document.getElementById("add-outfit-form-container")
 const outfitForm = document.getElementById("add-outfit-form");
 const outfitPhoto = document.getElementById("outfit-photo");
 const outfitPreview = document.getElementById("outfit-preview");
+const outfitName = document.getElementById("outfit-name");
+const cancelOutfitBtn = document.getElementById("cancel-outfit-form");
+const submitOutfitBtn = document.getElementById("submit-outfit-btn");
         //select tags container
 const selectedTagsContainer = document.getElementById("select-tags-container");
 
+//outfits-container section
+const outfitsContainer = document.getElementById("outfits-container");
+
+
 const createdTypes = {};
+const createdOutfits = {};
+const selectedTypes = new Set();
+let currentPhotoDataURL = "";
 
 const displayFilterModal = () => 
 {
@@ -44,9 +54,11 @@ const closeFilterModal = (confirm) =>
     {
         const confirmCancel = window.confirm("Are you sure you want to cancel?");
         if(confirmCancel)
+        { 
             filterModalHider.classList.add("hidden");
             addFilterFormContainer.classList.remove("modal-active");
             addFilterFormContainer.classList.add("hidden");
+        }
     }
     else
     {
@@ -63,9 +75,11 @@ const closeOutfitModal = (confirm) =>
     {
         const confirmCancel = window.confirm("Are you sure you want to cancel?");
         if(confirmCancel)
+        {
             filterModalHider.classList.add("hidden");
             outfitFormContainer.classList.remove("modal-active");
             outfitFormContainer.classList.add("hidden");
+        }
     }
     else
     {
@@ -107,6 +121,21 @@ const addFilterType = () =>
     filterBar.appendChild(newDiv);
 }
 
+const addCreatedOutfit = () =>
+{
+    const name = outfitName.value;
+    const id = crypto.randomUUID();
+    const outfit = 
+    {
+        name : name,
+        photo : currentPhotoDataURL,
+        filters : selectedTypes,
+        id : id
+    };
+    createdOutfits[outfit.id] = outfit;
+    displayCreatedOutfits();
+}
+
 
 addFilterBtn.addEventListener("click",displayFilterModal);
 
@@ -131,7 +160,28 @@ addTypeBtn.addEventListener("click", (e) =>
     closeFilterModal(false);
 });
 
-function getContrastingTextColor(hex) 
+submitOutfitBtn.addEventListener("click", (e) =>
+{
+    e.preventDefault();
+    if(outfitPhoto.value)
+    {
+        if(selectedTypes.size != 0)
+        {
+            addCreatedOutfit();
+            closeFilterModal(false); 
+        }
+        else
+        {
+            alert("You need to select atleast one outfit type");
+        }
+    }
+    else
+    {
+        alert("You need to upload a photo");
+    }
+});
+
+const getContrastingTextColor = hex =>
 {
   const r = parseInt(hex.substr(1, 2), 16);
   const g = parseInt(hex.substr(3, 2), 16);
@@ -166,12 +216,14 @@ outfitPhoto.addEventListener("change", () =>
   if(file) 
   {
     const reader = new FileReader();
-    reader.onload = () => outfitPreview.src = reader.result;
+    reader.onload = () => 
+        {
+            outfitPreview.src = reader.result;
+            currentPhotoDataURL = reader.result;
+        };
     reader.readAsDataURL(file);
   } 
 });
-
-const selectedTypes = new Set();
 
 const showAllFilterTags = () =>
 {
@@ -199,17 +251,27 @@ const showAllFilterTags = () =>
                 newDiv.classList.add("selected");
             }
         });
-        selectedTagsContainer.appendChild(newDiv);
+        selectedTagsContainer.appendChild(newDiv); 
     });
 }
 
 addOutfitBtn.addEventListener("click", displayOutfitModal);
+cancelOutfitBtn.addEventListener("click",closeOutfitModal);
+
+const displayCreatedOutfits = () =>
+{ 
+    outfitsContainer.innerHTML = "";
+    Object.values(createdOutfits).forEach((outfit) => 
+    {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("outfitHolder");
+        const outfitImage = document.createElement("img");
+        outfitImage.classList.add("outfitImage");
+        outfitImage.id = outfit.id;
+        outfitImage.src = outfit.photo;
+        newDiv.appendChild(outfitImage);
+        outfitsContainer.appendChild(newDiv);
+    });
+};
 
 
-/* to-do for today: 
-1. finish the html and css for the outfit form /
-2. understand how the picture preview works /
-3. Add the select outfit types section /
-4. complete the js for the outfit form
-5. display the outfits in the screen 
-6. look into json storage */
