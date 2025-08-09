@@ -349,6 +349,7 @@ removeFilterBtn.addEventListener("click", () =>
                         removeFilterBtn.classList.remove("delete");
                         removeFilterBtn.textContent = "remove filter";
                         delete createdTypes[type.id];
+                        removeDeletedTagFromOutfits();
                     }
                 }
                 else
@@ -367,8 +368,14 @@ removeFilterBtn.addEventListener("click", () =>
     }
 });
 
+const removeDeletedTagFromOutfits = () => 
+{
+    Object.values(createdOutfits).forEach((outfit) =>
+    {   
+       outfit.filters = outfit.filters.filter(f => !deleteTypes.has(f));
+    })
+    deleteTypes.clear();
+}
 /* to-do:
-1. the selectedTags for an outfit needs to be updated when the outfit's tag gets deleted 
-(also what to do if it has no more tags now)
 2. delete outfit option
 3. storage in JSON */
