@@ -357,28 +357,29 @@ removeFilterBtn.addEventListener("click", () =>
         }
         else
         {
-            Object.values(createdTypes).forEach((type) =>
+            if(deleteTypes.size != 0)
             {
-                if (deleteTypes.has(type.id))
+                const confirmCancel = window.confirm("Are you sure you want to delete the selected filter tag(s)?");
+                if(confirmCancel)
                 {
-                    const confirmCancel = window.confirm("Are you sure you want to delete the selected filter tags?");
-                    if(confirmCancel)
+                    Object.values(createdTypes).forEach((type) =>
                     {
-                        filterBar.classList.remove("deleteSelection");
-                        removeFilterBtn.classList.remove("delete");
-                        removeFilterBtn.textContent = "remove filter";
-                        delete createdTypes[type.id];
-                        removeDeletedTagFromOutfits();
-                    }
+                        if (deleteTypes.has(type.id))
+                        {
+                            filterBar.classList.remove("deleteSelection");
+                            removeFilterBtn.textContent = "remove filter";
+                            delete createdTypes[type.id];
+                        }
+                    });
+                    removeDeletedTagFromOutfits();
+                    renderFilterType();
                 }
-                else
-                {
-                    filterBar.classList.remove("deleteSelection");
-                    removeFilterBtn.classList.remove("delete");
-                    removeFilterBtn.textContent = "remove filter";
-                }
-            });
-            renderFilterType();
+            }
+            else
+            {
+                filterBar.classList.remove("deleteSelection");
+                removeFilterBtn.textContent = "remove filter";
+            }
         }
     }
     else
@@ -402,17 +403,21 @@ deleteOutfitBtn.addEventListener("click", () =>
     {
         if(outfitsContainer.classList.contains("deleteMode"))
         {
-            Object.values(createdOutfits).forEach((outfit) =>
+            if(selectedOutfits.size != 0)
             {
-                if(selectedOutfits.has(outfit.id))
+                const confirmCancel = window.confirm("Are you sure you want to delete the outfit(s)?");
+                if(confirmCancel)
                 {
-                    const confirmCancel = window.confirm("Are you sure you want to delete the outfit(s)?");
-                    if(confirmCancel)
+                    Object.values(createdOutfits).forEach((outfit) =>
                     {
-                        delete createdOutfits[outfit.id];
-                    }
+                        if(selectedOutfits.has(outfit.id))
+                        {
+                            delete createdOutfits[outfit.id];
+                        }
+                    });
+                    selectedOutfits.clear();
                 }
-            });
+            }
             displayCreatedOutfits();
             outfitsContainer.classList.remove("deleteMode");
         }
