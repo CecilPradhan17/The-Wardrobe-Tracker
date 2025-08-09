@@ -50,13 +50,27 @@ html,body{
     grid-template-columns: auto auto auto;
     gap:3rem;
     padding:3rem;
+    margin-top:10px;
+    height:100%;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    border:2px dotted black;
     justify-content:center;
+    background:rgb(197, 126, 126);
+    overflow-y:auto;
+}
+#outfits-container.deleteMode{
+    background:rgb(186, 27, 27);
 }
 .outfitHolder{
     border:1px solid black;
     text-align:center;
     height:350px;
     width:300px;
+}
+.outfitHolder.deleteOutfit{
+    border:2px solid red;
 }
 .outfitImage{
     width:100%;
@@ -77,7 +91,7 @@ html,body{
     width:10vw;
     margin-bottom:3em;
 }
-#add-clothing-btn{
+#delete-outfit-btn{
     height:5vh;
     width:10vw;
 }

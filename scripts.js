@@ -14,6 +14,7 @@ const addTypeBtn = document.getElementById("add-type-btn");
 
 //project-controls section
 const addOutfitBtn = document.getElementById("add-outfit-btn");
+const deleteOutfitBtn = document.getElementById("delete-outfit-btn");
     //add outfit modal 
 const outfitFormContainer = document.getElementById("add-outfit-form-container");
 const outfitForm = document.getElementById("add-outfit-form");
@@ -31,6 +32,7 @@ const outfitsContainer = document.getElementById("outfits-container");
 
 const createdTypes = {};
 const createdOutfits = {};
+const selectedOutfits = new Set();
 const selectedTypes = new Set();
 const selectedTags = new Set();
 const deleteTypes = new Set();
@@ -320,7 +322,24 @@ const displayCreatedOutfits = () =>
             outfitImage.classList.add("outfitImage");
             outfitImage.id = outfit.id;
             outfitImage.src = outfit.photo;
+            newDiv.id = outfit.id;
             newDiv.appendChild(outfitImage);
+            newDiv.addEventListener("click", ()=>
+            {
+                if(outfitsContainer.classList.contains("deleteMode"))
+                {
+                    if(selectedOutfits.has(newDiv.id))
+                    {
+                        selectedOutfits.delete(newDiv.id);
+                        newDiv.classList.remove("deleteOutfit");
+                    }
+                    else
+                    {
+                        selectedOutfits.add(newDiv.id);
+                        newDiv.classList.add("deleteOutfit");
+                    }
+                }
+            });
             outfitsContainer.appendChild(newDiv);
         }
     });
@@ -376,6 +395,38 @@ const removeDeletedTagFromOutfits = () =>
     })
     deleteTypes.clear();
 }
+
+deleteOutfitBtn.addEventListener("click", () =>
+{
+    if(outfitsContainer.innerHTML != "")
+    {
+        if(outfitsContainer.classList.contains("deleteMode"))
+        {
+            Object.values(createdOutfits).forEach((outfit) =>
+            {
+                if(selectedOutfits.has(outfit.id))
+                {
+                    const confirmCancel = window.confirm("Are you sure you want to delete the outfit(s)?");
+                    if(confirmCancel)
+                    {
+                        delete createdOutfits[outfit.id];
+                    }
+                }
+            });
+            displayCreatedOutfits();
+            outfitsContainer.classList.remove("deleteMode");
+        }
+        else
+        {
+            outfitsContainer.classList.add("deleteMode");
+        }
+    }
+    else
+    {
+        alert("You need to add outfits to delete them.");
+    }
+});
+
 /* to-do:
-2. delete outfit option
-3. storage in JSON */
+1. delete outfit option
+2. storage in JSON */
