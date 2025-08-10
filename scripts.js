@@ -433,5 +433,4 @@ deleteOutfitBtn.addEventListener("click", () =>
 });
 
 /* to-do:
-1. delete outfit option
 2. storage in JSON */

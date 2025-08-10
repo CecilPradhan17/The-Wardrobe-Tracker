@@ -1,100 +1,214 @@
 html,body{
+    background:linear-gradient(to bottom, rgba(189, 185, 185, 0.2), rgba(48, 48, 47, 0.4));
     display:flex;
     height:100%;
     width:100%;
     margin:0;
+}
+.glass{
+ background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-radius: 25px;  
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+ 
+    box-shadow:
+        inset 2px 2px 6px rgba(255, 255, 255, 0.6), 
+        inset -2px -2px 6px rgba(0, 0, 0, 0.2),     
+        4px 4px 20px rgba(0, 0, 0, 0.15);  
+}
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.3) 0%,
+        rgba(255,255,255,0) 60%
+    );
+    pointer-events: none;
 }
 #left-container{
     display:flex;
     flex-direction:column;
     flex:2;
     overflow-y: auto;
-
 }
 #right-container{
-    background:maroon;
     display:flex;
     flex-direction:column;
-    flex:0.6;
+    flex:0.5;
     align-items:center;
+    background:transparent;
 }
 #filter-bar{
-    background:grey;
-    border:2px solid grey;
     height:10vh;
     min-height:10vh;
     display:flex;
     align-items:center;
     overflow-x: auto;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:1em;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
+}
+#filter-bar::-webkit-scrollbar {
+    display: none;
 }
 #filter-btn-container{
     display:flex;
     justify-content: flex-end;
 }
 #add-filter-btn{
-    background:silver;
+    color:#4A2E1E;
     height:3vh; 
     width:7vw;
     text-align:center;
     font-weight:bold;
+    margin-right:20px;
+    margin-left:10px;
+    margin-top:10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
 #remove-filter-btn{
-    background:rgb(220, 161, 161);
+    color:#4A2E1E;
     height:3vh; 
     width:7vw;
     text-align:center;
     font-weight:bold;
+    margin-top:10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
 #outfits-container{
     display:grid;
     grid-template-columns: auto auto auto;
     gap:3rem;
-    padding:3rem;
-    margin-top:10px;
-    margin-bottom:1px;
+    margin-top:40px;
+    margin-bottom:20px;
     height:100%;
     width:90%;
     margin-left:auto;
     margin-right:auto;
-    border:2px dotted black;
     justify-content:center;
-    background:rgb(197, 126, 126);
     overflow-y:auto;
+    padding-top:50px; 
+    padding-bottom:50px;
+}
+#outfits-container::-webkit-scrollbar {
+    display: none; 
 }
 #outfits-container.deleteMode{
-    background:rgb(186, 27, 27);
+    background: rgba(255, 99, 99, 0.2); /* light red tint */
+    backdrop-filter: blur(8px); /* keep glass effect if using glassmorphism */
+    border: 2px solid rgba(222, 110, 110, 0.4); /* subtle red border */
+    transition: background 1s ease;
 }
 .outfitHolder{
+    position:relative;
     border:1px solid black;
     text-align:center;
-    height:350px;
-    width:300px;
+    height:300px;
+    width:250px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
-.outfitHolder.deleteOutfit{
-    border:2px solid red;
+.outfitHolder.deleteOutfit::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 99, 99, 0.25); /* light pinkish-red tint */
+    pointer-events: none; /* so clicks pass through */
+    z-index:1000;
+    border-radius: 20px;
 }
 .outfitImage{
     width:100%;
     height:100%;
     object-fit:cover;
     object-position: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
-#logo{
+#logo-container{
     border:1px solid black;
     height:30vh;
     width:17vw;
     text-align:center;
-    margin-top:2em;
+    margin-top:1.5em;
     margin-bottom:5em;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
+}
+#logo{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
 #add-outfit-btn{
+    color:#4A2E1E;
     height:5vh;
     width:10vw;
     margin-bottom:3em;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
+    font-weight: bold;
 }
 #delete-outfit-btn{
+    color:#4A2E1E;
     height:5vh;
     width:10vw;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
+    font-weight:bold;
 }
 .hidden{
     display:none;
@@ -183,9 +297,15 @@ html,body{
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 10px rgba(31, 38, 135, 0.37);
 }
 .outfit-type.selected{
-    border: 2px solid aqua;
+    border: 1px solid aqua;
 }
 #add-outfit-form-container{
     height:100%;
@@ -255,7 +375,7 @@ html,body{
     grid-template-columns: auto auto auto;
     justify-content: center;
     align-items: center;
-    column-gap:40px;
+    column-gap:50px;
     row-gap:40px;
     padding:20px;
     overflow:auto;
@@ -299,7 +419,10 @@ html,body{
     height:3em;
 }
 #filter-bar.deleteSelection{
-    border:2px solid rgb(224, 98, 98);
+    background: rgba(255, 99, 99, 0.2); /* light red tint */
+    backdrop-filter: blur(8px); /* keep glass effect if using glassmorphism */
+    border: 2px solid rgba(222, 110, 110, 0.4); /* subtle red border */
+    transition: background 1s ease;
 }
 .outfit-type.delete{
     border:2px solid rgb(224, 98, 98);
