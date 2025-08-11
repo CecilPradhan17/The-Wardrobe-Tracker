@@ -33,8 +33,8 @@ const outfitsContainer = document.getElementById("outfits-container");
 const createdTypes = {};
 const createdOutfits = {};
 const selectedOutfits = new Set();
-const selectedTypes = new Set();
-const selectedTags = new Set();
+const selectedTypes = new Set(); //tracker for the selected tags in the outfit form
+const selectedTags = new Set(); 
 const deleteTypes = new Set();
 
 let currentPhotoDataURL = "";
@@ -84,6 +84,9 @@ const closeOutfitModal = (confirm) =>
             filterModalHider.classList.add("hidden");
             outfitFormContainer.classList.remove("modal-active");
             outfitFormContainer.classList.add("hidden");
+            outfitName.value = "";
+            outfitPhoto.value = "";
+            outfitPreview.src = "";
         }
     }
     else
@@ -91,6 +94,9 @@ const closeOutfitModal = (confirm) =>
         filterModalHider.classList.add("hidden");
         outfitFormContainer.classList.add("hidden");
         outfitFormContainer.classList.remove("modal-active");
+        outfitName.value = "";
+        outfitPhoto.value = "";
+        outfitPreview.src = "";
     }
 }
 const createNewType = () =>
@@ -108,6 +114,9 @@ const createNewType = () =>
         };
         createdTypes[id] = type;
         renderFilterType();
+        typeName.value = "";
+        typeColor.value = "";
+        closeFilterModal(false);
     }
     else
         alert("You need to enter a name.");
@@ -164,18 +173,33 @@ const renderFilterType = () =>
 
 const addCreatedOutfit = () =>
 {
-    const name = outfitName.value;
-    const id = crypto.randomUUID();
-    const outfit = 
+    if(outfitPhoto.value)
     {
-        name : name,
-        photo : currentPhotoDataURL,
-        filters : Array.from(selectedTypes),
-        id : id
-    };
-    createdOutfits[outfit.id] = outfit;
-    displayCreatedOutfits();
-    selectedTypes.clear();
+        if(selectedTypes.size != 0)
+        {
+            const name = outfitName.value;
+            const id = crypto.randomUUID();
+            const outfit = 
+            {
+                name : name,
+                photo : currentPhotoDataURL,
+                filters : Array.from(selectedTypes),
+                id : id
+            };
+            createdOutfits[outfit.id] = outfit;
+            displayCreatedOutfits();
+            closeOutfitModal(false); 
+            selectedTypes.clear();
+        }
+        else
+        {
+            alert("You need to select atleast one outfit type");
+        }
+    }
+    else
+    {
+        alert("You need to upload a photo");
+    }
 }
 
 
@@ -209,28 +233,12 @@ addTypeBtn.addEventListener("click", (e) =>
 {
     e.preventDefault();
     createNewType();
-    closeFilterModal(false);
 });
 
 submitOutfitBtn.addEventListener("click", (e) =>
 {
     e.preventDefault();
-    if(outfitPhoto.value)
-    {
-        if(selectedTypes.size != 0)
-        {
-            addCreatedOutfit();
-            closeOutfitModal(false); 
-        }
-        else
-        {
-            alert("You need to select atleast one outfit type");
-        }
-    }
-    else
-    {
-        alert("You need to upload a photo");
-    }
+    addCreatedOutfit();
 });
 
 const getContrastingTextColor = hex =>
@@ -247,7 +255,6 @@ addFilterForm.addEventListener("keydown", (e) =>
     {
         e.preventDefault();
         createNewType();
-        closeFilterModal(false);
     } 
 });
 
@@ -256,11 +263,9 @@ outfitForm.addEventListener("keydown", (e) =>
     if(e.key === "Enter")
     {
         e.preventDefault();
-        addCreatedOutfit();
-        closeOutfitModal(false);
-    } 
+        addCreatedOutfit(); 
+    }
 });
-
 
 outfitPhoto.addEventListener("change", () => 
 {
@@ -318,8 +323,11 @@ addOutfitBtn.addEventListener("click", () =>
         alert("You need to create an outfit filter first.");
     }
 });
-cancelOutfitBtn.addEventListener("click",closeOutfitModal);
-
+cancelOutfitBtn.addEventListener("click", (e) =>
+{
+    e.preventDefault();
+    closeOutfitModal(true);
+});
 const displayCreatedOutfits = () =>
 { 
     outfitsContainer.innerHTML = "";

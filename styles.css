@@ -226,7 +226,8 @@ html,body{
 }
 #example{
     font-style: italic;
-    color:grey;
+    color:rgb(255, 254, 254);
+    margin-top:40px;
 }
 #type-color{
     width:15%;
