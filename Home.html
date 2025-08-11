@@ -9,16 +9,16 @@
     </head>
     <body>
         <div id="left-container">
-            <div id="filter-bar"></div>
+            <div id="filter-bar" class="glass"></div>
             <div id="filter-btn-container">
-                <button id="remove-filter-btn">remove filter</button>
-                <button id="add-filter-btn">add filter</button>
+                <button id="remove-filter-btn" class="glass">remove filter</button>
+                <button id="add-filter-btn" class="glass">add filter</button>
             </div>
             <div id="outfits-container" class="glass"></div>
         </div>
         <div id="right-container">
-            <div id="logo-container">
-                <img id="logo" src="logo.png"/>
+            <div id="logo-container" class="glass">
+                <img id="logo" class="glass" src="logo.png"/>
             </div>
             <button id="add-outfit-btn">
                 add outfit
@@ -37,7 +37,7 @@
                         <p id="example">For example: "Formal","Casual","Wear-to-class","Gym".etc</p>
                         <div id="type-name-container">
                             <label for="type-name" id="type-name-label"><strong>Outfit Type name:</strong></label>
-                            <input id="type-name" type="text" placeholder="Enter suitable outfit category" maxlength="30" required>
+                            <input id="type-name" class="glass" type="text" placeholder="Enter suitable outfit category" maxlength="30" required>
                         </div>
                         <div id="type-color-container">
                             <label for="type-color" id="type-color-label"><strong>Outfit Type color:</strong></label>
@@ -60,19 +60,19 @@
                         </div>
                         <div id="outfit-photo-container">
                             <label for="outfit-photo" id="outfit-photo-label"><strong>Submit Outfit Picture:</strong></label>
-                            <input id="outfit-photo" type="file" accept="image/*" required>
+                            <input id="outfit-photo" class="glass" type="file" accept="image/*" required>
                         </div>
                         <div id="outfit-preview-container">
-                            <div id="outfit-preview-holder">
-                                <img id="outfit-preview">
+                            <div id="outfit-preview-holder" class="glass">
+                                <img id="outfit-preview" class="glass">
                             </div>
                         </div>
                         <div id="outfit-name-container">
                             <label for="outfit-name" id="outfit-name-label"><strong>Outfit name:</strong></label>
-                            <input id="outfit-name" type="text" placeholder="Enter a name for your outfit (optional)" maxlength="30" />
+                            <input id="outfit-name" class="glass" type="text" placeholder="Enter a name for your outfit (optional)" maxlength="30" />
                         </div>
                         <div id="select-tags-header"><h2>Select the outfit type(s):</h2><p>(atleast one)</p></div>
-                        <div id="select-tags-container">
+                        <div id="select-tags-container" class="glass">
                         </div>
                         <div id="outfit-form-buttons">
                             <button id="cancel-outfit-form">Cancel</button>

@@ -124,6 +124,7 @@ const renderFilterType = () =>
         newDiv.style.background = type.color;
         newDiv.id = type.id;
         newDiv.classList.add("outfit-type");
+        newDiv.classList.add("glass");
         newDiv.style.color = getContrastingTextColor(type.color);
 
         newDiv.addEventListener("click", () => 
@@ -287,6 +288,7 @@ const showAllFilterTags = () =>
         newDiv.style.background = type.color;
         newDiv.id = type.id;
         newDiv.classList.add("outfitType");
+        newDiv.classList.add("glass");
         newDiv.style.color = getContrastingTextColor(type.color);
 
         newDiv.addEventListener("click", () => 
@@ -318,8 +320,10 @@ const displayCreatedOutfits = () =>
         {
             const newDiv = document.createElement("div");
             newDiv.classList.add("outfitHolder");
+            newDiv.classList.add("glass");
             const outfitImage = document.createElement("img");
             outfitImage.classList.add("outfitImage");
+            outfitImage.classList.add("glass");
             outfitImage.id = outfit.id;
             outfitImage.src = outfit.photo;
             newDiv.id = outfit.id;
