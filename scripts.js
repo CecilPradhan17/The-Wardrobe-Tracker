@@ -308,7 +308,16 @@ const showAllFilterTags = () =>
     });
 }
 
-addOutfitBtn.addEventListener("click", displayOutfitModal);
+addOutfitBtn.addEventListener("click", () =>
+{
+    if(Object.keys(createdTypes).length != 0)
+    {
+        displayOutfitModal();
+    }
+    else{
+        alert("You need to create an outfit filter first.");
+    }
+});
 cancelOutfitBtn.addEventListener("click",closeOutfitModal);
 
 const displayCreatedOutfits = () =>
