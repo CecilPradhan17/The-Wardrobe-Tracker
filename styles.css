@@ -91,6 +91,11 @@ html,body{
     text-align:center;
     height:300px;
     width:250px;
+    transition: transform 0.7s ease;
+}
+.outfitHolder:hover {
+  transform: scale(1.05); 
+  cursor: pointer; 
 }
 .outfitHolder.deleteOutfit::before {
     content: "";
